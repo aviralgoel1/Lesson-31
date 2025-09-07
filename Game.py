@@ -31,6 +31,8 @@ playerx_change=0
 
 effect=pygame.mixer.Sound('vine-boom.mp3')
 end=pygame.mixer.Sound('hell-nah.mp3')
+pew=pygame.mixer.Sound('pew_pew.mp3')
+prowler=pygame.mixer.Sound('prowler.mp3')
 
 enemyImg=[]
 enemyX=[]
@@ -66,6 +68,7 @@ def show_score(x,y):
 def game_over_text():
     over_text=over_font.render("GAME OVER",True,(255,255,255))
     screen.blit(over_text, (200,250))
+    end.play()
 def player (x,y):
     screen.blit(playerImg,(x,y))
 def enemy (x,y,i):
@@ -94,6 +97,7 @@ while running:
                 playerx_change = 5
             if event.key == pygame.K_SPACE and bullet_state == "ready":
                 bulletX = player_x  
+                pew.play()
                 fire_bullet(bulletX, bulletY)
         if event.type == pygame.KEYUP and event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
                 playerx_change = 0
@@ -108,7 +112,7 @@ while running:
             for j in range(num_of_enemies):
                 enemyY[j] = 2000
             game_over_text()
-            end.play()
+            
             break
 
         enemyX[i] += enemyX_change[i]
@@ -139,6 +143,7 @@ while running:
         enemy_speed_y+=10
         lvl_print = font.render("Level Up!", True, (255,255,255))
         screen.blit(lvl_print,(6,50))
+        prowler.play()
     player(player_x, player_y)
     show_score(textX, textY)
     pygame.display.update()
